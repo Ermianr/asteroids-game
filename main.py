@@ -7,27 +7,39 @@ def main():
 
   # Reloj de juego
   clock = pygame.time.Clock()
-  dt = 0
 
   # Crear jugador
   x = SCREEN_WIDTH / 2
   y = SCREEN_HEIGHT /2
-  player = Player(x, y, PLAYER_RADIUS)
 
   # Crear la pantalla
   screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
+  # Grupo
+  updatable = pygame.sprite.Group()
+  drawable = pygame.sprite.Group()
+
+  Player.containers = (updatable, drawable)
+
+  player = Player(x, y, PLAYER_RADIUS)
+
+  dt = 0
+
   while True:
      # Listener de eventos
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
           return quit
       
-    player.update(dt)
+    for obj in updatable:
+       obj.update(dt)
 
     # Rellenar de negro la pantalla
     screen.fill((0,0,0))
-    # Dibujar jugador
-    player.draw(screen)
+
+    for obj in drawable:
+       obj.draw(screen)
+  
     # Actualizar la pantalla
     pygame.display.flip()
 
