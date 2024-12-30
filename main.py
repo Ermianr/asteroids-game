@@ -22,13 +22,12 @@ def main():
       if event.type == pygame.QUIT:
           return quit
       
+    player.update(dt)
 
     # Rellenar de negro la pantalla
     screen.fill((0,0,0))
-
     # Dibujar jugador
     player.draw(screen)
-
     # Actualizar la pantalla
     pygame.display.flip()
 
